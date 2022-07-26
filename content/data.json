@@ -1,0 +1,207 @@
+[
+	{
+		"id": "pano_verdantbrink_entry",
+		"x": 36356.68,
+		"y": 31660.89
+	},
+	{
+		"id": "pano_frostgorge_ship",
+		"x": 54313.86,
+		"y": 26841.16
+	},
+	{
+		"id": "pano_lionsarch_cave",
+		"x": 48294.31,
+		"y": 31817.80
+	},
+	{
+		"id": "pano_lionsarch_memorial",
+		"x": 48220.69,
+		"y": 31267.84
+	},
+	{
+		"id": "pano_bitterfrost_forest",
+		"x": 54088.97,
+		"y": 23516.24
+	},
+	{
+		"id": "pano_divinitysreach_salma",
+		"x": 44273.68,
+		"y": 26735.68
+	},
+	{
+		"id": "pano_diessa_nolan",
+		"x": 56406.27,
+		"y": 29826.46
+	},
+	{
+		"id": "pano_bjora_kodan",
+		"x": 56433.28,
+		"y": 17845.00
+	},
+	{
+		"id": "pano_bjora_forest",
+		"x": 57669.18,
+		"y": 18657.23
+	},
+	{
+		"id": "pano_hoelbrak_square",
+		"x": 53846.45,
+		"y": 30497.35
+	},
+	{
+		"id": "pano_hoelbrak_center",
+		"x": 53789.63,
+		"y": 30450.74
+	},
+	{
+		"id": "pano_ironmarches_scorched",
+		"x": 60334.87,
+		"y": 26568.24
+	},
+	{
+		"id": "pano_ironmarches_brand",
+		"x": 61598.86,
+		"y": 27744.84
+	},
+	{
+		"id": "pano_ironmarches_manor",
+		"x": 61724.23,
+		"y": 29034.00
+	},
+	{
+		"id": "pano_ironmarches_ironhead",
+		"x": 60978.73,
+		"y": 29197.13
+	},
+	{
+		"id": "pano_ironmarches_bloodfin",
+		"x": 61657.34,
+		"y": 29432.58
+	},
+	{
+		"id": "pano_ebonhawke_stronghold",
+		"x": 62136.41,
+		"y": 35090.16
+	},
+	{
+		"id": "pano_ashford_basin",
+		"x": 61012.30,
+		"y": 31447.95
+	},
+	{
+		"id": "pano_ashford_shard",
+		"x": 60095.00,
+		"y": 30264.98
+	},
+	{
+		"id": "pano_citadel_crafting",
+		"x": 57246.28,
+		"y": 30324.88
+	},
+	{
+		"id": "pano_citadel_smelter",
+		"x": 57463.40,
+		"y": 31038.96
+	},
+	{
+		"id": "pano_bjora_keep",
+		"x": 58829.48,
+		"y": 18426.64
+	},
+	{
+		"id": "pano_shingjea_lostvillage",
+		"x": 22071.46,
+		"y": 104781.49
+	},
+	{
+		"id": "pano_drytop_leyline",
+		"x": 36856.41,
+		"y": 33345.06
+	},
+	{
+		"id": "pano_aetherblade_hideout",
+		"x": 48000.00,
+		"y": 32100.80
+	},
+	{
+		"id": "pano_silverwastes_sealedcavern",
+		"x": 36898.42,
+		"y": 30851.47
+	},
+	{
+		"id": "pano_grove_hiddengarden",
+		"x": 43126.91,
+		"y": 37175.08
+	},
+	{
+		"id": "pano_echovald_grotto",
+		"x": 30186.71,
+		"y": 103296.82
+	},
+	{
+		"id": "pano_lionsarch_puzzle",
+		"x": 50219.20,
+		"y": 32187.65
+	},
+	{
+		"id": "pano_bitterfrost_overlook",
+		"x": 55234.34,
+		"y": 23612.21
+	},
+	{
+		"id": "pano_bjora_tower",
+		"x": 58363.44,
+		"y": 18136.11
+	},
+	{
+		"id": "pano_grothmar_doomlore",
+		"x": 62177.57,
+		"y": 18046.09
+	},
+	{
+		"id": "pano_grothmar_puzzle",
+		"x": 61463.69,
+		"y": 17748.55
+	},
+	{
+		"id": "pano_grothmar_emergence",
+		"x": 62025.52,
+		"y": 19684.36
+	},
+	{
+		"id": "pano_grothmar_landslide",
+		"x": 60089.07,
+		"y": 18364.91
+	},
+	{
+		"id": "pano_ashford_lament",
+		"x": 61875.88,
+		"y": 30004.95
+	},
+	{
+		"id": "pano_shiverpeaks_pass",
+		"x": 59717.34,
+		"y": 19335.31
+	},
+	{
+		"id": "pano_grothmar_beach",
+		"x": 61511.89,
+		"y": 19675.97
+	},
+	{
+		"id": "pano_verdantbrink_frog",
+		"x": 34790.10,
+		"y": 31857.00
+	},
+	{
+		"id": "pano_shingjea_pavilion",
+		"x": 21339.86,
+		"y": 99044.29
+	},
+	{
+		"id": "pano_sunqua",
+		"x": 20339.86,
+		"y": 101912.89
+	}
+]

@@ -1,50 +1,54 @@
-import * as leaflet from '../vendors/leaflet/leaflet-src.esm.js';
+import * as L from '../vendors/leaflet/leaflet-src.esm.js';
 import * as pannellum from '../vendors/pannellum/pannellum.js';
 
-class Map {
-    
-    map;
-    southwest;
-    southeast;
-    basebounds = new leaflet.LatLngBounds({ lat: 0, lng: 40500 }, { lat: -40500, lng: 0 });
-	
-    constructor(){
-        this.map = new leaflet.Map('map',
-        {
-            minZoom: 3,
-            maxZoom: 7,
-            crs: leaflet.CRS.Simple,
-            maxBoundsViscosity: 1
-        });
-		
-        this.southwest = this.map.unproject([0,40500], this.map.getMaxZoom());
-        this.northeast = this.map.unproject([40500,0], this.map.getMaxZoom());
-        this.map.setMaxBounds(new leaflet.LatLngBounds(this.southwest, this.northeast));
+import data from '../content/data.json' assert {type: 'json'};
 
-        leaflet.tileLayer("https://tiles{s}.guildwars2.com/1/1/{z}/{x}/{y}.jpg",
-        {
-            minZoom: 3,
-            maxZoom: 7,
-            continuousWorld: true,
-            subdomains: [1,2,3,4]
-        }).addTo(this.map);
+var map;
+var factorX;
+var factorY;
 
-        this.map.fitBounds(this.basebounds);
-		
-		this.map.setZoom(3);
-		this.map.setView([-115.85, 127.4]); // lion's plaza
-
-        var marker = new leaflet.Marker([-123.38, 129.3]).addTo(this.map).on('click', showPanorama, this).options = "aerodrome";
-        var marker = new leaflet.Marker([-120, 115]).addTo(this.map).on('click', showPanorama, this).options = "largos";
-        var marker = new leaflet.Marker([-119.4, 28.19]).addTo(this.map).on('click', showPanorama, this).options = "verdant";
-	}
+function unproject(t) {
+    return map.unproject(t, map.getMaxZoom())
 }
 
-const map = new Map();
+function createMap() {
+    map = L.map("map", {
+        minZoom: 2,
+        maxZoom: 7,
+        crs: L.CRS.Simple,
+        attributionControl: !1
+    }), L.control.attribution({
+        prefix: 'Tiles by <a href="https://blog.thatshaman.com/" target="_blank">that_shaman</a>',
+        position: "bottomleft"
+    }).addTo(map);
+    var e = new L.LatLngBounds(unproject([0, 0]), unproject([81920, 114688]));
+	console.log("N: " + e.getNorth());
+	console.log("E: " + e.getEast());
+	console.log("S: " + e.getSouth());
+	console.log("W: " + e.getWest());
+	
+	factorX = e.getEast() / 81920;
+	factorY = e.getSouth() / 114688;
+	
+	console.log(factorX);
+	console.log(factorY);
+	
+    map.setMaxBounds(e), map.setView([-241, 368], 3), map.addLayer(L.tileLayer("https://tiles.tinyarmy.org/1/1/{z}/{x}/{y}.jpg", {
+        maxZoom: 7,
+        noWrap: !0,
+        tileSize: 256,
+        bounds: e,
+        maxBoundsViscosity: 1
+    }))
+	
+	data.forEach(element => new L.Marker([element.y * factorY, element.x * factorX]).addTo(map).on('click', showPanorama, this).options = element.id);
+}
+
+createMap();
 
 var oMap = document.getElementById("map");
 var oPanorama = document.getElementById("panorama");
-document.getElementsByClassName("leaflet-control-attribution")[0].style.display = "none"; // remove credits
+//document.getElementsByClassName("leaflet-control-attribution")[0].style.display = "none"; // remove credits
 
 //document.querySelector('#panorama .btn_fullscreen').addEventListener('click', toggleFullscreen);
 document.querySelector('#panorama .btn_exit').addEventListener('click', exitPanorama);
