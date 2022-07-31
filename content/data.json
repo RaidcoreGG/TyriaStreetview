@@ -303,5 +303,25 @@
 		"id": "pano_shingjea_village",
 		"x": 22851.87,
 		"y": 102334.22
+	},
+	{
+		"id": "pano_lionsarch_aerodrome",
+		"x": 49321.41,
+		"y": 32166.47
+	},
+	{
+		"id": "pano_drizzlewood_mine",
+		"x": 50360.94,
+		"y": 21992.70
+	},
+	{
+		"id": "pano_drizzlewood_overlook",
+		"x": 51565.28,
+		"y": 21589.81
+	},
+	{
+		"id": "pano_drizzlewood_north",
+		"x": 51608.21,
+		"y": 18824.28
 	}
 ]
