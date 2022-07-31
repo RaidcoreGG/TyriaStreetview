@@ -203,5 +203,105 @@
 		"id": "pano_sunqua",
 		"x": 20339.86,
 		"y": 101912.89
+	},
+	{
+		"id": "pano_arborstone_command",
+		"x": 29634.17,
+		"y": 101444.46
+	},
+	{
+		"id": "pano_echovald_brotherhood",
+		"x": 31377.81,
+		"y": 101269.83
+	},
+	{
+		"id": "pano_echovald_lake",
+		"x": 32135.39,
+		"y": 102869.64
+	},
+	{
+		"id": "pano_echovald_ferndale",
+		"x": 30626.21,
+		"y": 102969.20
+	},
+	{
+		"id": "pano_echovald_altar",
+		"x": 31510.03,
+		"y": 101628.52
+	},
+	{
+		"id": "pano_arborstone_lake",
+		"x": 29399.89,
+		"y": 101069.91
+	},
+	{
+		"id": "pano_w6_largos",
+		"x": 47705.59,
+		"y": 31743.27
+	},
+	{
+		"id": "pano_w6_entrance",
+		"x": 46581.34,
+		"y": 32383.38
+	},
+	{
+		"id": "pano_w4_overseer",
+		"x": 45804.22,
+		"y": 21209.92
+	},
+	{
+		"id": "pano_w4_warden",
+		"x": 45424.40,
+		"y": 21251.77
+	},
+	{
+		"id": "pano_w2_entrance",
+		"x": 36337.50,
+		"y": 29071.10
+	},
+	{
+		"id": "pano_w2_sloth",
+		"x": 36294.52,
+		"y": 29449.50
+	},
+	{
+		"id": "pano_shingjea_jayabluffs",
+		"x": 21552.21,
+		"y": 100827.75
+	},
+	{
+		"id": "pano_shingjea_harbor",
+		"x": 22616.28,
+		"y": 102183.80
+	},
+	{
+		"id": "pano_shingjea_zendaijun",
+		"x": 23606.18,
+		"y": 102327.16
+	},
+	{
+		"id": "pano_kaineng_docks",
+		"x": 25372.23,
+		"y": 99653.19
+	},
+	{
+		"id": "pano_kaineng_ruins",
+		"x": 28543.91,
+		"y": 98433.67
+	},
+	{
+		"id": "pano_dragonsend_grotto",
+		"x": 34483.24,
+		"y": 102354.28
+	},
+	{
+		"id": "pano_dragonsend_falls",
+		"x": 34834.81,
+		"y": 102401.89
+	},
+	{
+		"id": "pano_shingjea_village",
+		"x": 22851.87,
+		"y": 102334.22
 	}
 ]
