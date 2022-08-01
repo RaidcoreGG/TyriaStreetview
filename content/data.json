@@ -323,5 +323,65 @@
 		"id": "pano_drizzlewood_north",
 		"x": 51608.21,
 		"y": 18824.28
+	},
+	{
+		"id": "pano_eotn_pool",
+		"x": 57605.67,
+		"y": 21595.58
+	},
+	{
+		"id": "pano_eotn_hall",
+		"x": 57823.30,
+		"y": 21802.75
+	},
+	{
+		"id": "pano_wayfarer_osenfold",
+		"x": 55064.52,
+		"y": 30192.36
+	},
+	{
+		"id": "pano_wayfarer_pass",
+		"x": 55439.48,
+		"y": 28582.30
+	},
+	{
+		"id": "pano_gendarran_peaks",
+		"x": 49954.35,
+		"y": 29187.38
+	},
+	{
+		"id": "pano_queensdale_beetletun",
+		"x": 45761.96,
+		"y": 28414.92
+	},
+	{
+		"id": "pano_queensdale_shaemoor",
+		"x": 43648.75,
+		"y": 28534.37
+	},
+	{
+		"id": "pano_queensdale_fields",
+		"x": 43266.04,
+		"y": 28636.49
+	},
+	{
+		"id": "pano_queensdale_swamp",
+		"x": 44869.42,
+		"y": 29871.92
+	},
+	{
+		"id": "pano_queensdale_monastery",
+		"x": 45172.27,
+		"y": 29288.01
+	},
+	{
+		"id": "pano_bloodstone_crater",
+		"x": 35826.69,
+		"y": 30609.75
+	},
+	{
+		"id": "pano_bloodstone_depths",
+		"x": 35278.77,
+		"y": 30673.06
 	}
 ]
