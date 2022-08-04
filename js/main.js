@@ -56,7 +56,7 @@ document.querySelector('#panorama .btn_exit').addEventListener('click', exitPano
 function showPanorama(e) {
 	window.pannellum.viewer('panorama', {
             "type": "equirectangular",
-            "panorama": "content/views/"+e.sourceTarget.options+".png",
+            "panorama": "content/views/"+e.sourceTarget.options+".jpg",
             "autoLoad": true
         })
 	

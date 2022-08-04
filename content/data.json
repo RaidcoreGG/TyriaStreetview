@@ -383,5 +383,10 @@
 		"id": "pano_bloodstone_depths",
 		"x": 35278.77,
 		"y": 30673.06
+	},
+	{
+		"id": "pano_gendarran_settlement",
+		"x": 47696.34,
+		"y": 29726.91
 	}
 ]
