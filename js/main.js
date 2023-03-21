@@ -1,9 +1,11 @@
 import * as L from '../vendors/leaflet/leaflet-src.esm.js';
 import * as pannellum from '../vendors/pannellum/pannellum.js';
 
+var pois;
+
 fetch("../content/data.json")
   .then((response) => response.json())
-  .then((data) => console.log(data));
+  .then((data) => pois = data);
 
 var map;
 var factorX;
@@ -35,7 +37,7 @@ function createMap() {
 	console.log(factorX);
 	console.log(factorY);
 	
-    map.setMaxBounds(e), map.setView([-241, 368], 3), map.addLayer(L.tileLayer("https://tiles.tinyarmy.org/1/1/{z}/{x}/{y}.jpg", {
+    map.setMaxBounds(e), map.setView([-241, 368], 3), map.addLayer(L.tileLayer("https://assets.gw2dat.com/tiles/1/1/{z}/{x}/{y}.jpg", {
         maxZoom: 7,
         noWrap: !0,
         tileSize: 256,
@@ -43,7 +45,7 @@ function createMap() {
         maxBoundsViscosity: 1
     }))
 	
-	data.forEach(element => new L.Marker([element.y * factorY, element.x * factorX]).addTo(map).on('click', showPanorama, this).options = element.id);
+	pois.forEach(element => new L.Marker([element.y * factorY, element.x * factorX]).addTo(map).on('click', showPanorama, this).options = element.id);
 }
 
 createMap();
