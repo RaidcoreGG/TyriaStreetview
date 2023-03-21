@@ -41,7 +41,7 @@ function createMap() {
 	
 	fetch("../content/data.json")
 		.then((response) => response.json())
-		.then((json) => json.forEach(element => new L.Marker([element.y * factorY, element.x * factorX]).addTo(map).on('click', showPanorama, this).options = element.id););
+		.then((json) => json.forEach(element => new L.Marker([element.y * factorY, element.x * factorX]).addTo(map).on('click', showPanorama, this).options = element.id));
 }
 
 createMap();
