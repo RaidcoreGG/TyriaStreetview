@@ -5,11 +5,15 @@ var pois;
 
 fetch("../content/data.json")
   .then((response) => response.json())
-  .then((data) => pois = data);
+  .then((data) => assignData(data));
 
 var map;
 var factorX;
 var factorY;
+
+function assignData(d) {
+	pois = d;
+}
 
 function unproject(t) {
     return map.unproject(t, map.getMaxZoom())
@@ -37,7 +41,7 @@ function createMap() {
 	console.log(factorX);
 	console.log(factorY);
 	
-    map.setMaxBounds(e), map.setView([-241, 368], 3), map.addLayer(L.tileLayer("https://assets.gw2dat.com/tiles/1/1/{z}/{x}/{y}.jpg", {
+    map.setMaxBounds(e), map.setView([-241, 368], 3), map.addLayer(L.tileLayer("https://tiles.tinyarmy.org/1/1/{z}/{x}/{y}.jpg", {
         maxZoom: 7,
         noWrap: !0,
         tileSize: 256,
