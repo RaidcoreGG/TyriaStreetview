@@ -1,11 +1,11 @@
 import * as L from '../vendors/leaflet/leaflet-src.esm.js';
 import * as pannellum from '../vendors/pannellum/pannellum.js';
 
-var pois = {};
+var pois;
 
 fetch("../content/data.json")
-  .then((response) => response.json())
-  .then((data) => assignData(data));
+  .then((response) => assignData(response.json()))
+  .then((data) => console.log(data));
 
 var map;
 var factorX;
