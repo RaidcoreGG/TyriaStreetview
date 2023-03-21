@@ -22,7 +22,7 @@
 #controls button {
 	height: 32px;
 	width: 32px;
-	cursor: url("../Resources/Cursors/click.png"), auto;
+	!cursor: url("../Resources/Cursors/click.png"), auto;
 	border: 0;
 	background: transparent;
 	padding: 0;
@@ -64,7 +64,7 @@
     color: black;
     padding: 5px 10px;
     border-radius: 10px;
-    cursor: url("../Resources/Cursors/click.png"), auto;
+    !cursor: url("../Resources/Cursors/click.png"), auto;
 }
 .panoramaexit::after {
     background-image: url("../Resources/Images/close.png");
@@ -79,8 +79,8 @@
 }
 
 .leaflet-grab {
-    cursor: url("../Resources/Cursors/grab.png"), auto !important;
+    !cursor: url("../Resources/Cursors/grab.png"), auto !important;
 }
 .leaflet-dragging {
-	cursor: url("../Resources/Cursors/grabbing.png"), auto !important;
+	!cursor: url("../Resources/Cursors/grabbing.png"), auto !important;
 }
