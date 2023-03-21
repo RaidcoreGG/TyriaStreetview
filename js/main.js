@@ -1,7 +1,7 @@
 import * as L from '../vendors/leaflet/leaflet-src.esm.js';
 import * as pannellum from '../vendors/pannellum/pannellum.js';
 
-var pois;
+var pois = {};
 
 fetch("../content/data.json")
   .then((response) => response.json())
