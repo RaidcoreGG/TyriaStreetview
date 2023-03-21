@@ -84,3 +84,6 @@
 .leaflet-dragging {
 	!cursor: url("../Resources/Cursors/grabbing.png"), auto !important;
 }
+.leaflet-interactive {
+	!cursor: url("../Resources/Cursors/click.png"), auto !important;
+}

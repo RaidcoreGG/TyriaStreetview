@@ -205,9 +205,6 @@
 
 /* cursors */
 
-.leaflet-interactive {
-	cursor: url("../../Resources/Cursors/click.png"), auto;
-	}
 .leaflet-grab {
 	cursor: -webkit-grab;
 	cursor:    -moz-grab;

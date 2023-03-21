@@ -3,6 +3,10 @@ import * as pannellum from '../vendors/pannellum/pannellum.js';
 
 import data from '../content/data.json' assert {type: 'json'};
 
+fetch("../content/data.json")
+  .then((response) => response.json())
+  .then((data) => console.log(data));
+
 var map;
 var factorX;
 var factorY;
