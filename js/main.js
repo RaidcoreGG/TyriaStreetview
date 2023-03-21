@@ -1,19 +1,9 @@
 import * as L from '../vendors/leaflet/leaflet-src.esm.js';
 import * as pannellum from '../vendors/pannellum/pannellum.js';
 
-var pois;
-
-fetch("../content/data.json")
-  .then((response) => assignData(response.json()))
-  .then((data) => console.log(data));
-
 var map;
 var factorX;
 var factorY;
-
-function assignData(d) {
-	pois = d;
-}
 
 function unproject(t) {
     return map.unproject(t, map.getMaxZoom())
@@ -49,7 +39,9 @@ function createMap() {
         maxBoundsViscosity: 1
     }))
 	
-	pois.forEach(element => new L.Marker([element.y * factorY, element.x * factorX]).addTo(map).on('click', showPanorama, this).options = element.id);
+	fetch("../content/data.json")
+		.then((response) => response.json())
+		.then((json) => json.forEach(element => new L.Marker([element.y * factorY, element.x * factorX]).addTo(map).on('click', showPanorama, this).options = element.id););
 }
 
 createMap();
