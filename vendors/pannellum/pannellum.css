@@ -34,12 +34,10 @@
 
 .pnlm-grab {
     cursor: grab;
-    cursor: url("../../Resources/Cursors/grab.png"), auto;
 }
 
 .pnlm-grabbing {
     cursor: grabbing;
-	cursor: url("../../Resources/Cursors/grabbing.png"), auto;
 }
 
 .pnlm-sprite {
