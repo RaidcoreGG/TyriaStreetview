@@ -60,7 +60,7 @@ var oControls = document.getElementById("controls");
 //document.getElementsByClassName("leaflet-control-attribution")[0].style.display = "none"; // remove credits
 
 //document.querySelector('#panorama .btn_fullscreen').addEventListener('click', toggleFullscreen);
-document.querySelector('#panorama .btn_exit').addEventListener('click', exitPanorama);
+document.querySelector('.btn_exit').addEventListener('click', exitPanorama);
 
 async function fetchJSONData() {
     var response = await fetch("../content/data.json");
