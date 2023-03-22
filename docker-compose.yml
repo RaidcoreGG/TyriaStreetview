@@ -1,0 +1,9 @@
+version: '3.4'
+
+services:
+  web:
+    image: nginx:latest
+    volumes:
+      - ./:/usr/share/nginx/html/ 
+    ports:
+      - "80:80"
