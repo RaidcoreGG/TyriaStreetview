@@ -56,6 +56,7 @@ createMap();
 
 var oMap = document.getElementById("map");
 var oPanorama = document.getElementById("panorama");
+var oControls = document.getElementById("controls");
 //document.getElementsByClassName("leaflet-control-attribution")[0].style.display = "none"; // remove credits
 
 //document.querySelector('#panorama .btn_fullscreen').addEventListener('click', toggleFullscreen);
@@ -135,8 +136,10 @@ async function showPanorama(viewID) {
 	
 	oMap.classList.add("hidden");
 	oPanorama.classList.remove("hidden");
+	oControls.classList.remove("hidden");
 }
 function exitPanorama() {
 	oMap.classList.remove("hidden");
 	oPanorama.classList.add("hidden");
+	oControls.classList.add("hidden");
 }
