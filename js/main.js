@@ -47,7 +47,7 @@ function createMap() {
         maxBoundsViscosity: 1
     }))
 	
-	fetch("../content/data.json")
+	fetch("https://panoramas.raidcore.gg/data.json")
 		.then((response) => response.json())
 		.then((json) => json.forEach(element => new L.Marker([element.y * factorY, element.x * factorX]).addTo(map).on('click', showPanoramaClick, this).options = element.id));
 }
@@ -63,7 +63,7 @@ var oControls = document.getElementById("controls");
 document.querySelector('.btn_exit').addEventListener('click', exitPanorama);
 
 async function fetchJSONData() {
-    var response = await fetch("../content/data.json");
+    var response = await fetch("https://panoramas.raidcore.gg/data.json");
     var data = await response.json();
     return data;
 }
@@ -127,7 +127,7 @@ async function showPanorama(viewID) {
 
 	window.pannellum.viewer('panorama', {
         "type": "equirectangular",
-        "panorama": "content/views/"+viewID+".jpg",
+        "panorama": "https://panoramas.raidcore.gg/views/"+viewID+".jpg",
         "autoLoad": true,
         "hotSpots": hotspots,
         "compass": true,
