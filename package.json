@@ -1,6 +1,6 @@
 {
   "name": "@raidcore/tyriastreetview",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "It's like Streetview but for Guild Wars 2!",
   "private": true,
   "dependencies": {
