@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
-import L from "leaflet";
 import { MapContainer, TileLayer, useMap} from 'react-leaflet';
+import { useNavigate } from 'react-router-dom';
+import L from "leaflet";
 import "./Map.css"
+
 
 const TILE_URL = 'https://tiles.tinyarmy.org/1/1/{z}/{x}/{y}.jpg';
 const TILE_SIZE = 256;
 const ZOOM_MIN = 2;
 const ZOOM_MAX = 7;
-const ZOOM_INITIAL = 3;
+const ZOOM_INITIAL = 2;
 const CENTER = [-241, 368];
 const COORDS_MIN = [0,0];
 const COORDS_MAX = [81920, 114688];
@@ -20,10 +22,6 @@ const icon = L.icon({
 });
 
 
-function showPanoramaClick(eventArgs) {
-  console.log("Show panorama click: ", eventArgs.target.options.id);
-}
-
 function unproject(map, location) {
   return map.unproject(location, map.getMaxZoom());
 }
@@ -31,6 +29,7 @@ function unproject(map, location) {
 function MapController() {
   
   const map = useMap();
+  const navigate = useNavigate();
   const bounds = L.latLngBounds(unproject(map, COORDS_MIN), unproject(map, COORDS_MAX)); 
   const factorX = bounds.getEast() / COORDS_MAX[0];
   const factorY = bounds.getSouth() / COORDS_MAX[1];
@@ -47,9 +46,15 @@ function MapController() {
 
   }
 
+  function showPanoramaClick(eventArgs) {
+    const id = eventArgs.target.options.id;
+    navigate("view/"+id);
+  }
+
   useEffect(() => {
     map.fitBounds(bounds);
     map.setMaxBounds(bounds);
+    map.setView(CENTER, ZOOM_INITIAL)
     loadMarkers();
   });
 
@@ -64,7 +69,10 @@ function MapController() {
   );
 }
 
+
 function Map() {
+
+
 
   return (
     <MapContainer
