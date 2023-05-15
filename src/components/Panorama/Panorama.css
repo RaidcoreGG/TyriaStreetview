@@ -1,0 +1,39 @@
+/* Main panorama container */
+#panorama {
+    width: 100vw;
+    height: 100vh;
+}
+
+/* Panorama close button */
+#panorama .close-button {
+    position: absolute;
+    width: 32px;
+    height: 32px; 
+    right: 10px;
+    top: 10px;
+    z-index: 1;
+    background-size: 32px 32px;
+    border: none;
+    background: url('/public/images/button_close.png') no-repeat;
+    content: "";
+}
+
+/* Panorama close button */
+#panorama .close-button:hover {
+    background: url('/public/images/button_close_hover.png');
+}
+
+
+/* Panorama debug information  */
+#panorama .info {
+    z-index: 1;
+    position: absolute;
+    margin-left: 10px;
+    color: white;
+    margin: 10px;
+}
+
+#panorama canvas{
+    z-index: 0;
+}
+
