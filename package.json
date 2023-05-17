@@ -4,6 +4,7 @@
   "description": "It's like Streetview but for Guild Wars 2!",
   "private": true,
   "dependencies": {
+    "@react-three/drei": "^9.68.3",
     "@react-three/fiber": "^8.13.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
