@@ -53,28 +53,21 @@ function Sphere({id, cameraRef}) {
     let idToLoad = viewId;
 
     if(!dataCache) {
-      console.debug("loading arrows: data not available");
       return;
     }
 
     if(!currentPanoramaCache) {
-      console.debug("loading arrows: current panorama unknown");
       return;
     }
 
     if(!viewId) {
-
-      console.debug("loading arrows: currentId unknown using fallback ");
       idToLoad = currentPanoramaCache.id;
     }
-
 
 
     // Get location of current panorama
     const current_location = new THREE.Vector3(currentPanoramaCache.x, 0, currentPanoramaCache.y);
     const offset_vector = new THREE.Vector3().fromArray(ARROW_OFFSET);
-
-    console.log("loading arrows for: " + idToLoad);
 
     // Iterate over every cached element
     dataCache.forEach(element => {
@@ -105,18 +98,14 @@ function Sphere({id, cameraRef}) {
         direction: direction,
         color: randomColor
       };
-
-      console.log(arrowObject);
     
       // Update arrows storage
-      console.log("adding arrow " + arrows.length);
       setArrows((prevArrows) => [...prevArrows, arrowObject]);
     });
 
   }
 
   function onArrowClick(arrow) {
-    console.log("changing...");
     setArrows([]);
     navigate(`/view/${arrow.id}`);
     setViewId(arrow.id);
@@ -124,7 +113,6 @@ function Sphere({id, cameraRef}) {
 
   // Recompute arrows 
   useEffect(() => {
-    console.log("current panorama change");
     setArrows([]);
     loadArrows();
   }, [currentPanoramaCache])
@@ -132,7 +120,6 @@ function Sphere({id, cameraRef}) {
   // Recompute
   useEffect(() => {
     // reload current metadata
-    console.log("cache or viewid change");
     loadCurrentPanoramaMetadata();
   }, [dataCache, viewId]);
 
