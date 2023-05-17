@@ -5,13 +5,16 @@ import Panorama from './components/Panorama';
 import Map from "./components/Map";
 import 'leaflet/dist/leaflet.css';
 
+const ROUTE_MAP = "/";
+const ROUTE_PANORAMA = "view/:id";
+
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: ROUTE_MAP,
     element: <Map />,
   },
   {
-    path: "view/:id",
+    path: ROUTE_PANORAMA,
     element: <Panorama/>,
   }
 ]);
