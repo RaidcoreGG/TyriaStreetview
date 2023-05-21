@@ -1,12 +1,18 @@
-import React, {useEffect, useRef, useState } from 'react';
+import React, {createContext, useContext, useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate} from 'react-router-dom';
 import { Canvas, useLoader } from '@react-three/fiber';
-import { Cone, OrbitControls } from '@react-three/drei'
+import { Cone, OrbitControls, Line} from '@react-three/drei'
 import * as THREE from 'three';
 import "./Panorama.css";
 
+
+const DEBUG_ENABLED = false;
 const NAVIGATION_CLOSE = "/";
 
+const DATA_LINK_MAIN = "https://panoramas.raidcore.gg/data.json";
+const DATA_LINK_ALT = "https://sognus.cz/guildwars2/data.json";
+
+const DATA_LINK = DATA_LINK_MAIN; 
 const TEXTURE_LINK_TEMPLATE = "https://panoramas.raidcore.gg/views/{id}.jpg"
 const TEXTURE_LINK_PLACEHOLDER = "{id}";
 
@@ -14,18 +20,114 @@ const CAMERA_PERSPECTIVE_FOV = 75;
 const CAMERA_PERSPECTIVE_NEAR = 0.01;
 const CAMERA_PERSPECTIVE_FAR = 1100;
 const CAMERA_PERSPECTIVE_POSITION = [0,0,0];
-const CAMERA_ROTATION_SPEED = 1.0;
+const CAMERA_ROTATION_SPEED = 0.75;
 
-const PROJECTION_GEOMETRY_ARGS = [500, 40, 60];
+const ORBIT_CONTROLS_ZOOM_ENABLED = false;
+const ORBIT_CONTROLS_PAN_ENABLED = false;
+const ORBIT_CONTROLS_ZOOM_MIN = 0;
+const ORBIT_CONTROLS_ZOOM_MAX = 0;
+
+const PROJECTION_GEOMETRY_ARGS = [500, 60, 40];
 const DISTANCE_LIMIT = 500;
-const DISTANCE_CAMERA_TO_ARROW = 5;
+const DISTANCE_CAMERA_TO_ARROW = 10;
 
 const ARROW_OFFSET = [0, -10, 0];
-const ARROW_ARGS = [1, 4, 32]; // coneRadius, coneHeight, coneRadialSegments
+const ARROW_ARGS = [2, 6, 32]; // coneRadius, coneHeight, coneRadialSegments
 
-function Sphere({id, cameraRef}) {
-  // Texture loader
+// React context
+const TooltipContext = createContext();
+
+function TooltipProvider({ children }) {
+  const [hoveredArrow, setHoveredArrow] = useState(null);
+  const [pointerPosition, setPointerPosition] = useState({ x: 0, y: 0 });
+
+  return (
+    <TooltipContext.Provider value={{ hoveredArrow, setHoveredArrow, pointerPosition, setPointerPosition }}>
+      {children}
+    </TooltipContext.Provider>
+  );
+}
+
+function Tooltip({id}) {
+
+  const tooltipRef = useRef();
+  const { hoveredArrow, pointerPosition } = useContext(TooltipContext);
+
+  useEffect(() => {
+    tooltipRef.current.style.top = `${pointerPosition.y}px`;
+    tooltipRef.current.style.left = `${pointerPosition.x}px`;
+    tooltipRef.current.style.display = hoveredArrow ? "block" : "none";
+  }, [hoveredArrow, pointerPosition]);
+
+  return (
+    <div 
+      ref={tooltipRef}
+      className="tooltip"
+    >
+      {hoveredArrow && (hoveredArrow.displayName || hoveredArrow.id)}
+  </div>
+  )
+
+}
+
+function Arrow({arrow, onArrowClick}) {
+
+  const tooltipRef = useRef();
+  const [hover, setHover] = useState(false);
+  const { hoveredArrow, setHoveredArrow, pointerPosition, setPointerPosition } = useContext(TooltipContext);
+
+  function onPointerEnter() {
+    setHoveredArrow(arrow);
+    setHover(true);
+  }
+
+  function onPointerLeave() {
+    setHoveredArrow(null);
+    setHover(false);
+  }
+
+  function onPointerMove(event) {
+    if(!hover) return;
+    setPointerPosition({x: event.pageX, y: event.pageY});
+  }
+
+  function internalOnArrowClick(arrow) {
+    setHoveredArrow(null);
+    setHover(false);
+    onArrowClick(arrow);
+  }
+
+  return (
+    <mesh>
+      <Cone
+        args={ARROW_ARGS}
+        key={arrow.id}
+        position={arrow.position}
+        material-color={arrow.color}
+        onClick={internalOnArrowClick.bind(null, arrow)}
+        rotation={new THREE.Euler().setFromQuaternion(
+          new THREE.Quaternion().setFromUnitVectors(
+            new THREE.Vector3(0, 1, 0),
+            arrow.direction.clone().normalize()
+          )
+        )}
+        onPointerEnter={onPointerEnter}
+        onPointerLeave={onPointerLeave}
+        onPointerMove={onPointerMove}
+      >
+        <meshBasicMaterial attach="material" color={hover ? "red" : arrow.color} />
+      </Cone>
+    </mesh>
+  )
+}
+
+function Sphere({id, setDisplayName}) {
+  // Sphere mesh ref
+  const sphereGeometryRef = useRef();
+  // load texture
   const texture = useLoader(THREE.TextureLoader, TEXTURE_LINK_TEMPLATE.replace(TEXTURE_LINK_PLACEHOLDER, id));
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.repeat.x = -1; 
   // Hook into navigate
   const navigate = useNavigate();  
   // Control arrows storage
@@ -37,7 +139,7 @@ function Sphere({id, cameraRef}) {
 
   // Load data (ineffective - add backend to limit metadata fetch calls or something)
   const loadData = async () => {
-    const response = await fetch("https://panoramas.raidcore.gg/data.json");
+    const response = await fetch(DATA_LINK);
     const jsonData = await response.json();
     setDataCache(jsonData);
   }
@@ -85,18 +187,19 @@ function Sphere({id, cameraRef}) {
 
       // Calculate cone position
       const distanceToCamera = DISTANCE_CAMERA_TO_ARROW; // Adjust this value to control the proximity of the cone to point A
-      const position = new THREE.Vector3().fromArray([0,0,0]);
+      const position = new THREE.Vector3().fromArray(CAMERA_PERSPECTIVE_POSITION);
       position.addScaledVector(direction, distanceToCamera);
       position.add(offset_vector);
 
       // Generate random color
-      const randomColor = "#" + (Math.floor(Math.random() * 16777215).toString(16));
+      const randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, "0");
 
       const arrowObject = {
         position: position,
         id: element.id,
         direction: direction,
-        color: randomColor
+        color: randomColor,
+        displayName: element.displayName
       };
     
       // Update arrows storage
@@ -111,10 +214,16 @@ function Sphere({id, cameraRef}) {
     setViewId(arrow.id);
   }
 
-  // Recompute arrows 
+  // Recompute
   useEffect(() => {
     setArrows([]);
     loadArrows();
+    // Recompute rotation
+    const rotation = currentPanoramaCache?.rotation ?? 0;
+    sphereGeometryRef.current.rotation.set(0, THREE.MathUtils.degToRad(rotation), 0);
+    // Recompute display name
+    const displayName = currentPanoramaCache?.displayName ?? viewId;
+    setDisplayName(displayName);
   }, [currentPanoramaCache])
 
   // Recompute
@@ -129,46 +238,45 @@ function Sphere({id, cameraRef}) {
   }, []);
 
   return (
-    <mesh>
-      <sphereGeometry args={PROJECTION_GEOMETRY_ARGS} />
-      <meshBasicMaterial attach="material" map={texture} side={THREE.DoubleSide} />
-      <OrbitControls
-        rotateSpeed={CAMERA_ROTATION_SPEED} />
-      {arrows.map((arrow) => (
-        <Cone
-          args={ARROW_ARGS}
-          key={arrow.id}
-          position={arrow.position}
-          material-color={arrow.color}
-          onClick={onArrowClick.bind(null, arrow)}
-          rotation={new THREE.Euler().setFromQuaternion(
-            new THREE.Quaternion().setFromUnitVectors(
-              new THREE.Vector3(0, 1, 0),
-              arrow.direction.clone().normalize()
-            )
-          )}
-        >
-           <meshBasicMaterial attach="material" color={arrow.color} />
-        </Cone>
+    <>
+      <mesh ref={sphereGeometryRef}>
+        <sphereGeometry args={PROJECTION_GEOMETRY_ARGS} />
+        <meshBasicMaterial attach="material" map={texture} side={THREE.BackSide} toneMapped={false} />
+      </mesh>
+      {arrows.map((metadata) => (
+        <Arrow key={metadata.id} arrow={metadata} onArrowClick={onArrowClick}/>
       ))}
-    </mesh>
+      <OrbitControls
+          rotateSpeed={CAMERA_ROTATION_SPEED}
+          enablePan={ORBIT_CONTROLS_PAN_ENABLED}
+          enableZoom={ORBIT_CONTROLS_ZOOM_ENABLED}
+          minZoom={ORBIT_CONTROLS_ZOOM_MIN}
+          maxZoom={ORBIT_CONTROLS_ZOOM_MAX} />
+    </>
   );
 }
 
-function Scene({id}) {
-  const cameraRef = useRef();
-
+function Scene({id, setDisplayName}) {
   return (
     <>
-      <perspectiveCamera
-        ref={cameraRef}
+      <orthographicCamera
         fov={CAMERA_PERSPECTIVE_FOV}
         aspect={window.innerWidth / window.innerHeight}
         near={CAMERA_PERSPECTIVE_NEAR}
         far={CAMERA_PERSPECTIVE_FAR}
         position={CAMERA_PERSPECTIVE_POSITION}
       />
-      <Sphere id={id} cameraRef={cameraRef} />
+      {DEBUG_ENABLED && (
+        <>
+          {/* west */}
+          <Line points={[[0, 0, 0], [-100, 0, 0]]} color="red" />
+          {/* north */}
+          <Line points={[[0, 0, 0], [0, 0, -100]]} color="blue" />
+          {/* up */}
+          <Line points={[[0, 0, 0], [0, 100, 0]]} color="green" />
+        </>
+      )}
+      <Sphere id={id} setDisplayName={setDisplayName}/>
     </>
   );
 }
@@ -178,6 +286,7 @@ function Panorama(props) {
 
   const navigate = useNavigate();  
   const { id } = useParams();
+  const [displayName, setDisplayName] = useState(id);
   
   function close() {
     navigate(NAVIGATION_CLOSE);
@@ -185,11 +294,14 @@ function Panorama(props) {
 
   return (
     <div id="panorama">
-        <div className="info">Panorama {id}</div>
+        <div className="info">Panorama: {displayName}</div>
         <button className="close-button" onClick={close}></button>
-        <Canvas>
-          <Scene id={id}/>
-        </Canvas>
+        <TooltipProvider>
+          <Canvas>
+            <Scene id={id} setDisplayName={setDisplayName}/>
+          </Canvas>
+          <Tooltip />
+        </TooltipProvider>
     </div>
   );
 }

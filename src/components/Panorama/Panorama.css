@@ -18,6 +18,17 @@
     content: "";
 }
 
+#panorama .tooltip {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 8px;
+    border-radius: 4px;
+    pointer-events: none;
+    transform: translate(1%, -101%);
+    zIndex: 0;
+}
+
 /* Panorama close button */
 #panorama .close-button:hover {
     background: url('/public/images/button_close_hover.png');
