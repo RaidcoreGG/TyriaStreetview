@@ -5,6 +5,11 @@ import L from "leaflet";
 import "./Map.css"
 
 
+const DATA_LINK_MAIN = "https://panoramas.raidcore.gg/data.json";
+const DATA_LINK_ALT = "https://sognus.cz/guildwars2/data.json";
+
+const DATA_LINK = DATA_LINK_MAIN; 
+
 const TILE_URL = 'https://tiles.tinyarmy.org/1/1/{z}/{x}/{y}.jpg';
 const TILE_SIZE = 256;
 const ZOOM_MIN = 2;
@@ -35,12 +40,11 @@ function MapController() {
   const factorY = bounds.getSouth() / COORDS_MAX[1];
 
   function loadMarkers() {
-    fetch("https://panoramas.raidcore.gg/data.json")
+    fetch(DATA_LINK)
     .then((response) => response.json())
     .then((json) => json.forEach(element => {
-        console.log("Loading " + element.id)
         const marker = new L.Marker([element.y * factorY, element.x * factorX], {icon: icon});
-        marker.bindTooltip(element.id).addTo(map);
+        marker.bindTooltip(element.displayName ?? element.id).addTo(map);
         marker.on('click', showPanoramaClick, this).options.id = element.id;
     }));
 

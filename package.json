@@ -1,28 +1,48 @@
 {
   "name": "@raidcore/tyriastreetview",
-  "version": "0.4.0",
+  "version": "1.0.0",
   "description": "It's like Streetview but for Guild Wars 2!",
   "private": true,
-  "dependencies": {
-    "@react-three/drei": "^9.68.3",
-    "@react-three/fiber": "^8.13.0",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-leaflet": "^4.2.1",
-    "react-router-dom": "^6.11.1",
-    "react-scripts": "5.0.1",
-    "react-tooltip": "^5.13.0",
-    "three": "^0.152.2",
-    "web-vitals": "^2.1.4"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RaidcoreGG/TyriaStreetview.git"
   },
+  "authors": [
+    {
+      "name": "DeltaXHunter"
+    },
+    {
+      "name": "Sognus"
+    }
+  ],
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/RaidcoreGG/TyriaStreetview/issues"
+  },
+  "homepage": "https://tyria.raidcore.gg",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -b react -d build"
+  },
+  "dependencies": {
+    "@react-three/drei": "^9.69.2",
+    "@react-three/fiber": "^8.13.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "gh-pages": "^5.0.0",
+    "leaflet": "^1.9.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-leaflet": "^4.2.1",
+    "react-router-dom": "^6.11.2",
+    "react-scripts": "5.0.1",
+    "three": "^0.152.2",
+    "web-vitals": "^2.1.4"
   },
   "eslintConfig": {
     "extends": [
